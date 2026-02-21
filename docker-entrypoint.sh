@@ -2,7 +2,7 @@
 set -e
 export PORT=${PORT:-8080}
 envsubst '${PORT}' < /tmp/nginx.railway.conf.template > /etc/nginx/nginx.conf
-# Eliminar config por defecto para evitar conflictos
 rm -f /etc/nginx/conf.d/default.conf
-nginx
-exec php-fpm
+# php-fpm primero (en segundo plano), luego nginx (en primer plano para mantener el contenedor)
+php-fpm -D
+exec nginx -g "daemon off;"
