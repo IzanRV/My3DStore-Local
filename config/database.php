@@ -17,7 +17,14 @@ class Database {
             $this->connection = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME, DB_PORT);
             
             if ($this->connection->connect_error) {
-                throw new Exception("Error de conexión: " . $this->connection->connect_error);
+                $hint = '';
+                if (DB_HOST === 'localhost' && getenv('RAILWAY_PROJECT_ID')) {
+                    $hint = ' En Railway: añade MySQL y usa Variables → Add Reference → tu servicio MySQL.';
+                }
+                throw new Exception(
+                    "Error de conexión: " . $this->connection->connect_error . 
+                    " (Host: " . DB_HOST . ":" . DB_PORT . ", DB: " . DB_NAME . ")." . $hint
+                );
             }
             
             $this->connection->set_charset("utf8mb4");

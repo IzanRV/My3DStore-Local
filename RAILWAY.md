@@ -32,3 +32,14 @@ Railway inyecta `PORT` automáticamente. La aplicación escucha en ese puerto.
 ## Importar schema
 
 Tras crear la BD, ejecuta `database/schema.sql` contra tu MySQL de Railway (desde la consola de Railway o usando un cliente MySQL).
+
+## Solución: "Connection refused" o "Error de base de datos"
+
+Si ves **Connection refused** significa que la app no tiene las variables de MySQL:
+
+1. Asegúrate de tener un servicio **MySQL** en el mismo proyecto
+2. En tu servicio **web (PHP)** → **Variables**
+3. Pulsa **"+ New Variable"** → **"Add Reference"**
+4. Elige el servicio **MySQL** (no el de ai3d)
+5. Se añadirán `MYSQLHOST`, `MYSQLUSER`, etc. automáticamente
+6. Railway redesplegará la app
