@@ -141,15 +141,26 @@
             });
         }
 
-        // Botón subir: solo visible al pulsar Contacto, se desvanece al usarse
+        // Botón subir: visible al pulsar Contacto o al hacer scroll hasta el footer, se desvanece al usarse
         const btnSubir = document.getElementById('btnSubir');
+        const footerEl = document.getElementById('footer');
         if (btnSubir) {
+            function mostrarBoton() {
+                btnSubir.classList.remove('opacity-0', 'pointer-events-none');
+            }
             // Mostrar botón cuando se pulsa en Contacto (enlaces a #footer)
             document.querySelectorAll('a[href="#footer"]').forEach(link => {
-                link.addEventListener('click', () => {
-                    btnSubir.classList.remove('opacity-0', 'pointer-events-none');
-                });
+                link.addEventListener('click', mostrarBoton);
             });
+            // Mostrar botón cuando se hace scroll hasta el footer
+            if (footerEl) {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) mostrarBoton();
+                    });
+                }, { rootMargin: '0px', threshold: 0.1 });
+                observer.observe(footerEl);
+            }
             // Al pulsar el botón: subir y desvanecerse
             btnSubir.addEventListener('click', () => {
                 window.scrollTo({ top: 0, behavior: 'smooth' });
