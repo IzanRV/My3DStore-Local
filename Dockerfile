@@ -1,9 +1,10 @@
 # Dockerfile para Railway: PHP + Nginx en un solo contenedor
 FROM php:8.2-fpm
 
-# Instalar nginx y dependencias
+# Instalar nginx y dependencias (gettext proporciona envsubst)
 RUN apt-get update && apt-get install -y \
     nginx \
+    gettext-base \
     libpng-dev \
     libjpeg62-turbo-dev \
     libfreetype6-dev \
