@@ -24,8 +24,10 @@ uploads/
 output/
 cache/
 
-# Modelos
+# Modelos descargados (triposr, shape-e, etc.)
 models/
+# Incluir app/models/ (módulo Python de jobs)
+!app/models/
 
 # Environment
 .env
