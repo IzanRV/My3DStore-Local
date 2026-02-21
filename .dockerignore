@@ -15,6 +15,7 @@ README*
 # Archivos de configuración local
 .env
 config/*.php
+!config/database.php
 !config/*.php.example
 
 # Archivos temporales
