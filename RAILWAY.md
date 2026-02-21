@@ -4,22 +4,26 @@
 
 Railway detectará automáticamente el `Dockerfile` en la raíz y desplegará la aplicación PHP + Nginx.
 
-## Variables de entorno obligatorias
+## Variables de entorno
 
-En **Railway** → tu servicio → **Variables** añade:
+### Base de datos (automático con MySQL de Railway)
 
-| Variable  | Descripción           | Ejemplo (MySQL Railway) |
-|-----------|-----------------------|---------------------------|
-| `DB_HOST` | Host de MySQL         | `containers-us-west-xxx.railway.app` |
-| `DB_USER` | Usuario de la BD      | `root` |
-| `DB_PASS` | Contraseña            | (la que te da Railway) |
-| `DB_NAME` | Nombre de la base     | `railway` |
+Si añades **MySQL** como base de datos en el mismo proyecto, usa **Add Reference** en Variables para referenciar las variables del servicio MySQL. La app admite:
+
+- **Railway MySQL**: `MYSQLHOST`, `MYSQLUSER`, `MYSQLPASSWORD`, `MYSQLDATABASE`, `MYSQLPORT`
+- **Manual**: `DB_HOST`, `DB_USER`, `DB_PASS`, `DB_NAME`, `DB_PORT`
+
+### Microservicio IA 3D
+
+| Variable              | Descripción                          |
+|-----------------------|--------------------------------------|
+| `AI_3D_SERVICE_URL`   | URL pública del microservicio ai3d   |
 
 ## Base de datos MySQL
 
 1. En tu proyecto Railway → **New** → **Database** → **MySQL**
-2. Railway crea el servicio y te da las variables de conexión
-3. Referencia esas variables en tu servicio web (o copia los valores a las variables de arriba)
+2. En el servicio web → **Variables** → **Add Reference** → selecciona el servicio MySQL
+3. Esto inyecta `MYSQLHOST`, `MYSQLUSER`, etc. automáticamente
 
 ## Puertos
 
