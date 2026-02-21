@@ -4,26 +4,23 @@
 
 Railway detectará automáticamente el `Dockerfile` en la raíz y desplegará la aplicación PHP + Nginx.
 
-## Variables de entorno
+## Variables de entorno obligatorias
 
-### Base de datos (automático con MySQL de Railway)
+En **Railway** → tu servicio → **Variables** añade:
 
-Si añades **MySQL** como base de datos en el mismo proyecto, usa **Add Reference** en Variables para referenciar las variables del servicio MySQL. La app admite:
+| Variable  | Descripción           | Ejemplo |
+|-----------|-----------------------|---------|
+| `DB_HOST` | Host de MySQL         | (del servicio MySQL) |
+| `DB_USER` | Usuario de la BD      | `root` |
+| `DB_PASS` | Contraseña            | (la que te da Railway) |
+| `DB_NAME` | Nombre de la base     | `railway` |
+| `AI_3D_SERVICE_URL` | URL del microservicio ai3d | `https://tu-ai3d.up.railway.app` |
 
-- **Railway MySQL**: `MYSQLHOST`, `MYSQLUSER`, `MYSQLPASSWORD`, `MYSQLDATABASE`, `MYSQLPORT`
-- **Manual**: `DB_HOST`, `DB_USER`, `DB_PASS`, `DB_NAME`, `DB_PORT`
+## Microservicio IA 3D
 
-### Microservicio IA 3D
-
-| Variable              | Descripción                          |
-|-----------------------|--------------------------------------|
-| `AI_3D_SERVICE_URL`   | URL pública del microservicio ai3d   |
-
-## Base de datos MySQL
-
-1. En tu proyecto Railway → **New** → **Database** → **MySQL**
-2. En el servicio web → **Variables** → **Add Reference** → selecciona el servicio MySQL
-3. Esto inyecta `MYSQLHOST`, `MYSQLUSER`, etc. automáticamente
+1. **URL pública**: En Railway → servicio ai3d → Settings → Networking → activa **Generate domain**
+2. **Variable en la app PHP**: `AI_3D_SERVICE_URL=https://TU-URL-DEL-MICROSERVICIO.up.railway.app`
+3. Tras cambiar la variable, Railway redesplegará automáticamente.
 
 ## Puertos
 
@@ -32,14 +29,3 @@ Railway inyecta `PORT` automáticamente. La aplicación escucha en ese puerto.
 ## Importar schema
 
 Tras crear la BD, ejecuta `database/schema.sql` contra tu MySQL de Railway (desde la consola de Railway o usando un cliente MySQL).
-
-## Solución: "Connection refused" o "Error de base de datos"
-
-Si ves **Connection refused** significa que la app no tiene las variables de MySQL:
-
-1. Asegúrate de tener un servicio **MySQL** en el mismo proyecto
-2. En tu servicio **web (PHP)** → **Variables**
-3. Pulsa **"+ New Variable"** → **"Add Reference"**
-4. Elige el servicio **MySQL** (no el de ai3d)
-5. Se añadirán `MYSQLHOST`, `MYSQLUSER`, etc. automáticamente
-6. Railway redesplegará la app

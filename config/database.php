@@ -1,12 +1,11 @@
 <?php
 // Configuración de base de datos
-// Soporta: Docker (DB_*), Railway MySQL (MYSQL*), valores por defecto locales.
+// En Docker se usan las variables de entorno (docker-compose). En local, los valores por defecto.
 
-define('DB_HOST', getenv('DB_HOST') ?: getenv('MYSQLHOST') ?: getenv('MYSQL_HOST') ?: 'localhost');
-define('DB_USER', getenv('DB_USER') ?: getenv('MYSQLUSER') ?: getenv('MYSQL_USER') ?: 'root');
-define('DB_PASS', getenv('DB_PASS') ?: getenv('MYSQLPASSWORD') ?: getenv('MYSQL_PASSWORD') ?: '');
-define('DB_NAME', getenv('DB_NAME') ?: getenv('MYSQLDATABASE') ?: getenv('MYSQL_DATABASE') ?: 'tienda_3d');
-define('DB_PORT', (int) (getenv('DB_PORT') ?: getenv('MYSQLPORT') ?: getenv('MYSQL_PORT') ?: 3306));
+define('DB_HOST', getenv('DB_HOST') ?: 'localhost');
+define('DB_USER', getenv('DB_USER') ?: 'root');
+define('DB_PASS', getenv('DB_PASS') ?: '');
+define('DB_NAME', getenv('DB_NAME') ?: 'tienda_3d');
 
 class Database {
     private static $instance = null;
@@ -14,17 +13,10 @@ class Database {
 
     private function __construct() {
         try {
-            $this->connection = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME, DB_PORT);
+            $this->connection = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
             
             if ($this->connection->connect_error) {
-                $hint = '';
-                if (DB_HOST === 'localhost' && getenv('RAILWAY_PROJECT_ID')) {
-                    $hint = ' En Railway: añade MySQL y usa Variables → Add Reference → tu servicio MySQL.';
-                }
-                throw new Exception(
-                    "Error de conexión: " . $this->connection->connect_error . 
-                    " (Host: " . DB_HOST . ":" . DB_PORT . ", DB: " . DB_NAME . ")." . $hint
-                );
+                throw new Exception("Error de conexión: " . $this->connection->connect_error);
             }
             
             $this->connection->set_charset("utf8mb4");
