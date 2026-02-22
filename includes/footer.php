@@ -69,7 +69,7 @@
             </div>
             <div class="mt-20 pt-8 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-blue-100/60">
                 <div class="flex items-center gap-2">
-                    <span class="material-icons-outlined text-lg">3d_rotation</span>
+                    <img src="<?php echo htmlspecialchars(asset('images/logo-icon.png')); ?>" alt="" class="h-6 w-6 object-contain" aria-hidden="true" />
                     <span>© <?php echo date('Y'); ?> My3DStore. Todos los derechos reservados.</span>
                 </div>
                 <div class="flex flex-wrap items-center gap-6">
