@@ -27,6 +27,9 @@ Thumbs.db
 storage/
 cache/
 
+# Presentación (no subir al repo)
+Presentacion/
+
 # Archivos generados (no subir al repo)
 public/generated_models/
 public/stl/*.stl

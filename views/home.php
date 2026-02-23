@@ -89,13 +89,13 @@ include __DIR__ . '/../includes/header.php';
 <div class="flex-1 space-y-8 z-10 text-center lg:text-left">
 <div class="inline-flex items-center gap-2 px-3 py-1 bg-primary/10 text-primary rounded-full text-sm font-semibold">
 <span class="flex h-2 w-2 rounded-full bg-primary animate-pulse"></span>
-                        Nuevo: Materiales de Madera Real
+                        Nuevo: Materiales de Madera natural
                     </div>
 <h1 class="text-5xl lg:text-7xl font-extrabold leading-tight tracking-tight">
                         Crea lo que <span class="text-primary">imagines</span> en 3D
                     </h1>
 <p class="text-lg text-slate-600 dark:text-slate-400 max-w-xl mx-auto lg:mx-0">
-                        Personaliza tus propios diseños o elige de nuestro catálogo curado de productos impresos con la más alta calidad y materiales sostenibles.
+                        Personaliza tus propios diseños o elige de nuestro catálogo de productos impresos con la más alta calidad y materiales sostenibles.
                     </p>
 <div class="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-4">
 <a href="/My3DStore/?action=products" class="px-8 py-4 bg-primary text-white font-bold rounded-2xl hover:shadow-xl hover:-translate-y-1 transition-all">

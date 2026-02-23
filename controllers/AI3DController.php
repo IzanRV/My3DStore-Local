@@ -36,6 +36,26 @@ class AI3DController {
     }
 
     /**
+     * Verifica que el microservicio esté disponible; si no, devuelve 503 y termina.
+     */
+    private function ensureServiceHealthy() {
+        if ($this->aiService->isHealthy()) {
+            return;
+        }
+        http_response_code(503);
+        $url = $this->aiService->getBaseUrl();
+        $hint = (strpos($url, 'localhost') !== false || !getenv('AI_3D_SERVICE_URL'))
+            ? ' Configura AI_3D_SERVICE_URL con la URL pública del microservicio ai3d (Railway: ai3d → Settings → Networking → Generate domain).'
+            : '';
+        echo json_encode([
+            'error' => 'El servicio de IA no está disponible.',
+            'service_url' => $url,
+            'hint' => trim($hint)
+        ]);
+        exit;
+    }
+
+    /**
      * Router de acciones
      */
     public function handle() {
@@ -92,12 +112,7 @@ class AI3DController {
             $modelType = $input['model_type'] ?? 'shap-e';
             $quality = $input['quality'] ?? 'medium';
 
-            // Verificar que el servicio esté activo
-            if (!$this->aiService->isHealthy()) {
-                http_response_code(503);
-                echo json_encode(['error' => 'El servicio de IA no está disponible']);
-                return;
-            }
+            $this->ensureServiceHealthy();
 
             // Iniciar generación
             $result = $this->aiService->generateFromText(
@@ -147,12 +162,7 @@ class AI3DController {
             $modelType = $_POST['model_type'] ?? 'triposr';
             $quality = $_POST['quality'] ?? 'medium';
 
-            // Verificar que el servicio esté activo
-            if (!$this->aiService->isHealthy()) {
-                http_response_code(503);
-                echo json_encode(['error' => 'El servicio de IA no está disponible']);
-                return;
-            }
+            $this->ensureServiceHealthy();
 
             // Iniciar generación
             $result = $this->aiService->generateFromImages(

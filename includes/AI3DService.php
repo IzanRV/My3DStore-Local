@@ -257,4 +257,11 @@ class AI3DService {
             return false;
         }
     }
+
+    /**
+     * Obtiene la URL base del servicio (para mensajes de error)
+     */
+    public function getBaseUrl() {
+        return $this->baseUrl;
+    }
 }
